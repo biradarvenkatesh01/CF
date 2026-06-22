@@ -30,7 +30,7 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
 
     // Sequence of typing text:
     const txt1 = 'iinitializing_codefury_9.0';
-    const txt2 = 'looading_tracks...';
+    const txt2 = 'lloading_ttracks...';
     const txt3 = 'reegistration_status:';
     const txt4 = 'bboot_sequence: SUCCESS';
 
