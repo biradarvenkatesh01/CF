@@ -1,31 +1,12 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-export function About() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  // Hook to track the scroll of the section relative to the viewport
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Map scroll progress to translateY offset (speed increased: up to -420px)
-  const rawY = useTransform(scrollYProgress, [0, 1], [0, -1200]);
-
-  // Create a smoothed spring value for smooth inertial catch-up on both mobile and PC
-  const y = useSpring(rawY, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
+export function About({ sectionRef }: { sectionRef?: React.RefObject<HTMLDivElement | null> }) {
   return (
-    <motion.section
+    <section
       id="about"
       ref={sectionRef}
       className="about-outer-wrap"
-      style={{ minHeight: '80vh', y }}
+      style={{ minHeight: '80vh' }}
     >
       {/* SVG Filter for generating the realistic, organic torn paper edge */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
@@ -42,8 +23,76 @@ export function About() {
       {/* Torn background sheet covering the entire section, with torn edges at top and bottom */}
       <div className="about-torn-bg-paper"></div>
 
-      <div className="section-container"></div>
-    </motion.section>
+      <div className="section-container">
+        <div className="section-header-block">
+          <h2 className="section-heading">About <span className="about-heading-accent">Us</span></h2>
+        </div>
+
+        <div className="about-grid">
+          {/* Card 1: IEEE UVCE & Computer Society */}
+          <div className="card-3d">
+            <div className="card-3d-top"></div>
+            <div className="card-3d-right"></div>
+            <div className="card-3d-front">
+              <h3 className="card-3d-title">IEEE UVCE & CS</h3>
+              <div className="card-3d-body">
+                <p>
+                  IEEE UVCE is the student branch of IEEE at the University of Visvesvaraya College of Engineering, operating under the IEEE Bangalore Section. Established in 2001, it has grown into a vibrant platform for students to explore innovation, research, and leadership through national and global IEEE events, technical interest groups, and collaborative initiatives. The branch actively promotes technical excellence, professional development, and community engagement, shaping the next generation of engineers.
+                </p>
+                <p>
+                  The IEEE UVCE Computer Society is a dedicated technical chapter focused on fostering a culture of innovation and problem-solving. It regularly conducts coding competitions, hackathons, workshops, and tech talks addressing real-world challenges. With a strong emphasis on skill-building and peer learning, the society empowers students to grow into competent and impactful tech professionals.
+                </p>
+              </div>
+              <div className="card-3d-metrics">
+                <div className="card-metric-badge">
+                  <span className="card-metric-val">500+</span>
+                  <span className="card-metric-lbl">Members</span>
+                </div>
+                <div className="card-metric-badge">
+                  <span className="card-metric-val">25+ Years</span>
+                  <span className="card-metric-lbl">Established</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: About CodeFury v9.0 */}
+          <div className="card-3d">
+            <div className="card-3d-top"></div>
+            <div className="card-3d-right"></div>
+            <div className="card-3d-front">
+              <h3 className="card-3d-title">About CodeFury v9.0</h3>
+              <div className="card-3d-body">
+                <p>
+                  CodeFury is our flagship Annual National-Level Hackathon that brings together the brightest minds in programming and innovation. This 24-hour intensive coding marathon challenges participants to build revolutionary solutions to real-world problems.
+                </p>
+                <p>
+                  Open to students from all colleges and universities, CodeFury has grown to become one of the most prestigious hackathons in the region, attracting participants from across the country.
+                </p>
+              </div>
+              <div className="card-3d-metrics">
+                <div className="card-metric-badge">
+                  <span className="card-metric-val">500+</span>
+                  <span className="card-metric-lbl">Participants</span>
+                </div>
+                <div className="card-metric-badge">
+                  <span className="card-metric-val">24 hrs</span>
+                  <span className="card-metric-lbl">Non-stop</span>
+                </div>
+                <div className="card-metric-badge">
+                  <span className="card-metric-val">₹60K</span>
+                  <span className="card-metric-lbl">Prize Pool</span>
+                </div>
+                <div className="card-metric-badge">
+                  <span className="card-metric-val">100%</span>
+                  <span className="card-metric-lbl">Online</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -37,7 +37,19 @@ export function Header() {
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const L = element.offsetTop;
+      const H = 72; // Header height
+      let targetScroll = L - H;
+
+      if (targetId === 'about') {
+        const VH = window.innerHeight;
+        const SH = element.offsetHeight;
+        const maxTranslateY = -1200; // Match the updated parallax speed
+        const K = maxTranslateY / (SH + VH);
+        targetScroll = L + (K * VH - H) / (1 - K);
+      }
+
+      window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
       window.history.pushState(null, '', href);
     }
   };
@@ -45,14 +57,8 @@ export function Header() {
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsOpen(false);
-    const element = document.getElementById('hero');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.pushState(null, '', '#hero');
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.pushState(null, '', '#');
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.history.pushState(null, '', '#hero');
   };
 
   return (
