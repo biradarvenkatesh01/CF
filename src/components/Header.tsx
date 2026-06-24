@@ -37,18 +37,7 @@ export function Header() {
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
-      const L = element.offsetTop;
-      const H = 72; // Header height
-      let targetScroll = L - H;
-
-      if (targetId === 'about') {
-        const VH = window.innerHeight;
-        const SH = element.offsetHeight;
-        const maxTranslateY = -1200; // Match the updated parallax speed
-        const K = maxTranslateY / (SH + VH);
-        targetScroll = L + (K * VH - H) / (1 - K);
-      }
-
+      const targetScroll = element.offsetTop - 72; // Subtract header height
       window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
       window.history.pushState(null, '', href);
     }

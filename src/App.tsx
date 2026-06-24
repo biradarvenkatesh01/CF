@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Header } from './components/Header';
 import { Hero } from './components/sections/Hero';
@@ -20,23 +19,6 @@ import './App.css';
 
 export function App() {
   const [introComplete, setIntroComplete] = useState(false);
-  const aboutRef = useRef<HTMLDivElement>(null);
-
-  // Hook to track the scroll of the About section relative to the viewport
-  const { scrollYProgress } = useScroll({
-    target: aboutRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Map scroll progress of About section to translateY (0 to -1200px)
-  const rawY = useTransform(scrollYProgress, [0, 1], [0, -1200]);
-
-  // Create a smoothed spring value for smooth inertial catch-up on both mobile and PC
-  const y = useSpring(rawY, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
 
   useEffect(() => {
     // Lock scrolling while the intro is active
@@ -58,18 +40,7 @@ export function App() {
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
-      const L = element.offsetTop;
-      const H = 72; // Header height
-      let targetScroll = L - H;
-
-      if (targetId === 'about') {
-        const VH = window.innerHeight;
-        const SH = element.offsetHeight;
-        const maxTranslateY = -1200; // Match the updated parallax speed
-        const K = maxTranslateY / (SH + VH);
-        targetScroll = L + (K * VH - H) / (1 - K);
-      }
-
+      const targetScroll = element.offsetTop - 72; // Subtract header height
       window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
       window.history.pushState(null, '', href);
     }
@@ -89,24 +60,24 @@ export function App() {
       <Header />
 
       <main>
-        <Hero onExplore={handleExplore} />
-        <motion.div style={{ y }}>
-          <About sectionRef={aboutRef} />
-          <Tracks />
-          <PrizePool />
-          <Timeline />
-          <CodeFuryWall />
-          <PastWinners />
-          <Sponsors />
-          <Game />
-          <FAQ />
-          <Contact />
-          <Footer />
-        </motion.div>
+        <Hero onExplore={handleExplore} isReveal={introComplete} />
+        <About />
+        <Tracks />
+        <PrizePool />
+        <Timeline />
+        <CodeFuryWall />
+        <PastWinners />
+        <Sponsors />
+        <Game />
+        <FAQ />
+        <Contact />
       </main>
 
       {/* Floating utility */}
       <BackToTopButton />
+
+      {/* Pure black association footer */}
+      <Footer />
     </div>
   );
 }

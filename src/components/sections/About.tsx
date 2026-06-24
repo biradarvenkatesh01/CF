@@ -1,10 +1,9 @@
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
-export function About({ sectionRef }: { sectionRef?: React.RefObject<HTMLDivElement | null> }) {
+export function About() {
   return (
     <section
       id="about"
-      ref={sectionRef}
       className="about-outer-wrap"
       style={{ minHeight: '80vh' }}
     >
@@ -24,13 +23,25 @@ export function About({ sectionRef }: { sectionRef?: React.RefObject<HTMLDivElem
       <div className="about-torn-bg-paper"></div>
 
       <div className="section-container">
-        <div className="section-header-block">
+        <motion.div
+          className="section-header-block"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <h2 className="section-heading">About <span className="about-heading-accent">Us</span></h2>
-        </div>
+        </motion.div>
 
         <div className="about-grid">
           {/* Card 1: IEEE UVCE & Computer Society */}
-          <div className="card-3d">
+          <motion.div
+            className="card-3d"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <div className="card-3d-top"></div>
             <div className="card-3d-right"></div>
             <div className="card-3d-front">
@@ -54,10 +65,16 @@ export function About({ sectionRef }: { sectionRef?: React.RefObject<HTMLDivElem
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: About CodeFury v9.0 */}
-          <div className="card-3d">
+          <motion.div
+            className="card-3d"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+          >
             <div className="card-3d-top"></div>
             <div className="card-3d-right"></div>
             <div className="card-3d-front">
@@ -89,7 +106,7 @@ export function About({ sectionRef }: { sectionRef?: React.RefObject<HTMLDivElem
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

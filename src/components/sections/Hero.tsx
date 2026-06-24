@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import ieeeLogo from '../../assets/ieee-logo.png';
 import csLogo from '../../assets/cs-logo.png';
 
 interface HeroProps {
   onExplore?: (href: string) => void;
+  isReveal?: boolean;
 }
 
-export function Hero({ onExplore }: HeroProps) {
+export function Hero({ onExplore, isReveal = false }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
   function calculateTimeLeft() {
@@ -51,7 +53,13 @@ export function Hero({ onExplore }: HeroProps) {
   }, []);
 
   return (
-    <section id="hero" className="section-hero">
+    <motion.section
+      id="hero"
+      className="section-hero"
+      initial={{ opacity: 0, y: 40 }}
+      animate={isReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       {/* Top Part: White Textured Background */}
       <div className="hero-top-section">
         <div className="hero-content">
@@ -213,7 +221,7 @@ export function Hero({ onExplore }: HeroProps) {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
