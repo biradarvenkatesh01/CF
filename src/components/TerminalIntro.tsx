@@ -29,10 +29,10 @@ export function TerminalIntro({ onComplete }: TerminalIntroProps) {
     document.body.style.overflow = 'hidden';
 
     // Sequence of typing text:
-    const txt1 = 'iinitializing_codefury_9.0';
-    const txt2 = 'lloading_ttracks...';
-    const txt3 = 'reegistration_status:';
-    const txt4 = 'bboot_sequence: SUCCESS';
+    const txt1 = 'initializing_codefury_9.0';
+    const txt2 = 'loading_tracks...';
+    const txt3 = 'registration_status:';
+    const txt4 = 'boot_sequence: SUCCESS';
 
     let index1 = 0;
     let index2 = 0;
