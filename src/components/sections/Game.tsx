@@ -11,17 +11,17 @@ export function Game() {
   const holdBtnRef   = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    const canvas    = canvasRef.current;
-    const scoreEl   = scoreRef.current;
-    const introEl   = introRef.current;
-    const perfectEl = perfectRef.current;
-    const restartBtn = restartRef.current;
-    const holdBtn    = holdBtnRef.current;
+    if (!containerRef.current || !canvasRef.current || !scoreRef.current || !introRef.current || !perfectRef.current || !restartRef.current || !holdBtnRef.current) return;
 
-    if (!container || !canvas || !scoreEl || !introEl || !perfectEl || !restartBtn || !holdBtn) return;
+    const container = containerRef.current!;
+    const canvas    = canvasRef.current!;
+    const scoreEl   = scoreRef.current!;
+    const introEl   = introRef.current!;
+    const perfectEl = perfectRef.current!;
+    const restartBtn = restartRef.current!;
+    const holdBtn    = holdBtnRef.current!;
 
-    // ── Helpers (replace prototype extensions) ──────────────────────────────
+    // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
     const sinus = (degree: number) => Math.sin((degree / 180) * Math.PI);
 
@@ -189,7 +189,7 @@ export function Game() {
           heroY += dt / fallingSpeed;
           const maxHeroY = platformHeight + 100 + (canvas.height - canvasHeight) / 2;
           if (heroY > maxHeroY) {
-            restartBtn.style.display = 'block';
+            restartBtn.style.display = 'flex';
             return;
           }
           break;
@@ -332,9 +332,8 @@ export function Game() {
       if (phase === 'stretching') phase = 'turning';
     };
 
-    // ── Touch / mobile button events ─────────────────────────────────────────
     const onTouchStart = (e: TouchEvent) => {
-      e.preventDefault(); // stop scroll while playing
+      e.preventDefault();
       onMouseDown();
     };
     const onTouchEnd = (e: TouchEvent) => {
@@ -350,13 +349,11 @@ export function Game() {
 
     canvas.addEventListener('mousedown', onMouseDown);
     canvas.addEventListener('mouseup', onMouseUp);
-    // Touch events on the canvas itself
     canvas.addEventListener('touchstart', onTouchStart, { passive: false });
     canvas.addEventListener('touchend',   onTouchEnd,   { passive: false });
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('resize', onResize);
 
-    // Mobile hold button (same logic as mouse/touch)
     holdBtn.addEventListener('mousedown',  onMouseDown);
     holdBtn.addEventListener('mouseup',    onMouseUp);
     holdBtn.addEventListener('touchstart', onTouchStart, { passive: false });
@@ -367,7 +364,6 @@ export function Game() {
       resetGame();
     });
 
-    // ── Init ─────────────────────────────────────────────────────────────────
     resetGame();
     animId = requestAnimationFrame(animate);
 
@@ -390,6 +386,7 @@ export function Game() {
   return (
     <section id="game" className="game-outer-wrap-new">
       <div className="section-container">
+        {/* Section Header */}
         <motion.div
           className="section-header-block"
           initial={{ opacity: 0, y: -20 }}
@@ -398,7 +395,7 @@ export function Game() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
           <h2 className="section-heading">
-            FlappyDev <span className="game-heading-accent">Mini Game</span>
+            Stick man <span className="game-heading-accent">Mini Game</span>
           </h2>
           <div className="heading-underline" />
           <p className="game-section-hint">
@@ -408,37 +405,108 @@ export function Game() {
             <span className="game-hint-small">Land perfectly in the red zone for <strong>DOUBLE SCORE</strong></span>
           </p>
         </motion.div>
-      </div>
 
-      {/* Full-width game canvas area */}
-      <div ref={containerRef} className="game-canvas-container-new">
-        <div ref={scoreRef} className="game-score-new" />
-        <canvas
-          ref={canvasRef}
-          className="game-canvas-new"
-          style={{ cursor: 'pointer', display: 'block' }}
-        />
-        <div ref={introRef} className="game-intro-new">
-          Tap &amp; hold the button below<br />
-          <span style={{ fontSize: '12px', opacity: 0.8 }}>(or hold mouse on canvas)</span><br />
-          to stretch out a stick
-        </div>
-        <div ref={perfectRef} className="game-perfect-new">
-          DOUBLE SCORE!
-        </div>
-        <button ref={restartRef} className="game-restart-new">
-          RESTART
-        </button>
-
-        {/* Mobile hold button — fixed at bottom of canvas */}
-        <button
-          ref={holdBtnRef}
-          className="game-hold-btn"
-          aria-label="Hold to stretch the stick"
+        {/* Game Box — rectangular bordered container */}
+        <motion.div
+          className="game-box-wrapper"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
         >
-          <span className="game-hold-label">HOLD</span>
-          <span className="game-hold-sub">press &amp; hold</span>
-        </button>
+          {/* The rectangular game canvas area */}
+          <div ref={containerRef} className="game-canvas-container-new game-canvas-rect">
+            {/* Score */}
+            <div ref={scoreRef} className="game-score-new" />
+
+            {/* Canvas */}
+            <canvas
+              ref={canvasRef}
+              className="game-canvas-new"
+              style={{ cursor: 'pointer', display: 'block' }}
+            />
+
+            {/* Intro overlay */}
+            <div ref={introRef} className="game-intro-new">
+              Tap &amp; hold the button below<br />
+              <span style={{ fontSize: '12px', opacity: 0.8 }}>(or hold mouse on canvas)</span><br />
+              to stretch out a stick
+            </div>
+
+            {/* Perfect text */}
+            <div ref={perfectRef} className="game-perfect-new">
+              DOUBLE SCORE!
+            </div>
+
+            {/* Restart button */}
+            <button ref={restartRef} className="game-restart-new" aria-label="Restart Game">
+              RESTART
+            </button>
+
+            {/* Mobile hold button */}
+            <button
+              ref={holdBtnRef}
+              className="game-hold-btn"
+              aria-label="Hold to stretch the stick"
+            >
+              <span className="game-hold-label">HOLD</span>
+              <span className="game-hold-sub">press &amp; hold</span>
+            </button>
+          </div>
+
+          {/* Button row — directly below the game box */}
+          <div className="game-actions-row">
+            <a href="#register" className="btn-register-3d game-register-btn" aria-label="Register Now">
+              <div className="btn-register-3d-wrapper">
+                <svg
+                  width="200"
+                  height="54"
+                  viewBox="0 0 200 54"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Top Face (Light Blue) */}
+                  <polygon
+                    points="2,12 14,2 198,2 186,12"
+                    fill="#3b82f6"
+                    stroke="#000000"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                  />
+                  {/* Right Face (Medium Blue) */}
+                  <polygon
+                    points="186,12 198,2 198,42 186,52"
+                    fill="#1d4ed8"
+                    stroke="#000000"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                  />
+                  {/* Front Face (White) */}
+                  <polygon
+                    points="2,12 186,12 186,52 2,52"
+                    fill="#ffffff"
+                    stroke="#000000"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                  />
+                  {/* Text */}
+                  <text
+                    x="94"
+                    y="32"
+                    fill="#000000"
+                    fontSize="13"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    fontFamily="var(--font-mono)"
+                    dominantBaseline="central"
+                  >
+                    REGISTER NOW →
+                  </text>
+                </svg>
+              </div>
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

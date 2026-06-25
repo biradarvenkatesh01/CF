@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Header } from './components/Header';
 import { Hero } from './components/sections/Hero';
@@ -32,9 +32,9 @@ export function App() {
     };
   }, [introComplete]);
 
-  const handleIntroComplete = () => {
+  const handleIntroComplete = useCallback(() => {
     setIntroComplete(true);
-  };
+  }, []);
 
   const handleExplore = (href: string) => {
     const targetId = href.replace('#', '');

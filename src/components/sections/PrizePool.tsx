@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 const TrophyIcon = ({ color }: { color: string }) => (
   <svg
     width="56"
@@ -29,11 +31,55 @@ const TrophyIcon = ({ color }: { color: string }) => (
   </svg>
 );
 
+const PRIZE_CARDS = [
+  {
+    cardClass: 'prize-card-silver',
+    topClass: 'prize-top-silver',
+    rightClass: 'prize-right-silver',
+    frontClass: 'prize-front-custom',
+    badgeClass: 'badge-silver',
+    trophyColor: '#94a3b8',
+    rank: '2nd Place',
+    amount: '₹15,000',
+    label: 'Runner Up',
+    order: 2,
+    delay: 0.15,
+  },
+  {
+    cardClass: 'prize-card-gold',
+    topClass: 'prize-top-gold',
+    rightClass: 'prize-right-gold',
+    frontClass: 'prize-front-custom prize-front-gold',
+    badgeClass: 'badge-gold',
+    trophyColor: '#f59e0b',
+    rank: '1st Place',
+    amount: '₹25,000',
+    label: 'Winner',
+    amountClass: 'amount-gold',
+    labelClass: 'label-gold',
+    order: 1,
+    delay: 0,
+  },
+  {
+    cardClass: 'prize-card-bronze',
+    topClass: 'prize-top-bronze',
+    rightClass: 'prize-right-bronze',
+    frontClass: 'prize-front-custom',
+    badgeClass: 'badge-bronze',
+    trophyColor: '#ca8a04',
+    rank: '3rd Place',
+    amount: '₹10,000',
+    label: 'Second Runner Up',
+    order: 3,
+    delay: 0.3,
+  },
+];
+
 export function PrizePool() {
   return (
     <section id="prizes" className="prizes-outer-wrap" style={{ minHeight: '70vh' }}>
       
-      {/* Infinite Marquee Bar located exactly at the boundary */}
+      {/* Infinite Marquee Bar */}
       <div className="marquee-bar-container">
         <div className="marquee-bar">
           <div className="marquee-track">
@@ -48,54 +94,51 @@ export function PrizePool() {
       </div>
 
       <div className="section-container">
-        <div className="section-header-block">
+        <motion.div
+          className="section-header-block"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
           <h2 className="section-heading">Prize <span className="prizes-heading-accent">Pool</span></h2>
-        </div>
+          <div className="heading-underline" />
+        </motion.div>
 
         <div className="prizes-grid-3d">
-          {/* Second Prize Card (Silver) */}
-          <div className="card-3d prize-card-silver">
-            <div className="card-3d-top prize-top-silver"></div>
-            <div className="card-3d-right prize-right-silver"></div>
-            <div className="card-3d-front prize-front-custom">
-              <TrophyIcon color="#94a3b8" />
-              <div className="prize-rank-badge-3d badge-silver">2nd Place</div>
-              <div className="prize-amount-3d">₹15,000</div>
-              <div className="prize-label-3d">Runner Up</div>
-            </div>
-          </div>
-
-          {/* First Prize Card (Gold) */}
-          <div className="card-3d prize-card-gold">
-            <div className="card-3d-top prize-top-gold"></div>
-            <div className="card-3d-right prize-right-gold"></div>
-            <div className="card-3d-front prize-front-custom prize-front-gold">
-              <TrophyIcon color="#f59e0b" />
-              <div className="prize-rank-badge-3d badge-gold">1st Place</div>
-              <div className="prize-amount-3d amount-gold">₹25,000</div>
-              <div className="prize-label-3d label-gold">Winner</div>
-            </div>
-          </div>
-
-          {/* Third Prize Card (Bronze) */}
-          <div className="card-3d prize-card-bronze">
-            <div className="card-3d-top prize-top-bronze"></div>
-            <div className="card-3d-right prize-right-bronze"></div>
-            <div className="card-3d-front prize-front-custom">
-              <TrophyIcon color="#ca8a04" />
-              <div className="prize-rank-badge-3d badge-bronze">3rd Place</div>
-              <div className="prize-amount-3d">₹10,000</div>
-              <div className="prize-label-3d">Second Runner Up</div>
-            </div>
-          </div>
+          {PRIZE_CARDS.map((card) => (
+            <motion.div
+              key={card.rank}
+              className={`card-3d ${card.cardClass}`}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: card.delay }}
+            >
+              <div className={`card-3d-top ${card.topClass}`}></div>
+              <div className={`card-3d-right ${card.rightClass}`}></div>
+              <div className={`card-3d-front ${card.frontClass}`}>
+                <TrophyIcon color={card.trophyColor} />
+                <div className={`prize-rank-badge-3d ${card.badgeClass}`}>{card.rank}</div>
+                <div className={`prize-amount-3d ${card.amountClass || ''}`}>{card.amount}</div>
+                <div className={`prize-label-3d ${card.labelClass || ''}`}>{card.label}</div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Consolation/Special Prizes Banner */}
-        <div className="prizes-consolation-box">
+        <motion.div
+          className="prizes-consolation-box"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.4 }}
+        >
           <p className="consolation-text">
-            Additional cash prizes worth <strong>₹10,000</strong> for Special Track Winners & Consolation Prizes!
+            Additional cash prizes worth <strong>₹10,000</strong> for Special Track Winners &amp; Consolation Prizes!
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

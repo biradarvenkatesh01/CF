@@ -31,6 +31,7 @@ export function About() {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <h2 className="section-heading">About <span className="about-heading-accent">Us</span></h2>
+          <div className="heading-underline" />
         </motion.div>
 
         <div className="about-grid">

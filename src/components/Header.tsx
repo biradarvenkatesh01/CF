@@ -22,7 +22,7 @@ const DROPDOWN_NAV_ITEMS: NavItem[] = [
   { label: 'CodeFury Wall', href: '#wall' },
   { label: 'Past Winners', href: '#past' },
   { label: 'Our Sponsors', href: '#sponsors' },
-  { label: 'FlappyDev (Mini Game)', href: '#game' },
+  { label: 'Stick man (Mini Game)', href: '#game' },
   { label: 'FAQs', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ];

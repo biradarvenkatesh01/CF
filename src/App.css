@@ -221,15 +221,19 @@
   margin: 0 auto;
   padding: 80px 24px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .section-header-block {
   text-align: center;
   margin-bottom: 48px;
+  width: 100%;
 }
 
 .section-heading {
-  font-size: 36px;
+  font-size: clamp(28px, 4vw, 40px);
   font-weight: 800;
   text-transform: uppercase;
   color: var(--text-primary);
@@ -658,6 +662,10 @@
   color: #0f172a;
 }
 
+.about-outer-wrap .heading-underline {
+  background: linear-gradient(90deg, #1d4ed8, #0891b2);
+}
+
 .about-heading-accent {
   color: #3b82f6; /* Matching the bright blue card top face */
 }
@@ -667,6 +675,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   align-items: stretch;
+  width: 100%;
 }
 
 @media (max-width: 900px) {
@@ -805,6 +814,7 @@
 .tracks-grid-single {
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .tracks-card-custom {
@@ -883,6 +893,10 @@
   color: #0f172a;
 }
 
+.prizes-outer-wrap .heading-underline {
+  background: linear-gradient(90deg, #1d4ed8, #0891b2);
+}
+
 .prizes-heading-accent {
   color: #3b82f6; /* Matching About heading accent */
 }
@@ -894,6 +908,7 @@
   max-width: 1000px;
   margin: 0 auto;
   align-items: end;
+  width: 100%;
 }
 
 .prize-front-custom {
@@ -1051,12 +1066,14 @@
   position: relative;
   z-index: 2;
   padding-top: 32px; /* Pull heading closer to top */
+  padding-bottom: 24px;
 }
 
 .timeline-container {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .timeline-line {
@@ -1374,7 +1391,7 @@
   letter-spacing: 0.5px;
 }
 
-/* Section Game */
+/* Section Game — legacy (kept for backwards compat) */
 .game-wrapper {
   max-width: 600px;
   margin: 0 auto;
@@ -1382,31 +1399,6 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-}
-
-.game-telemetry {
-  display: flex;
-  gap: 40px;
-  margin-bottom: 16px;
-}
-
-.telemetry-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.telemetry-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
-}
-
-.telemetry-val {
-  font-family: var(--font-mono);
-  font-size: 20px;
-  color: white;
 }
 
 .canvas-container {
@@ -1423,33 +1415,6 @@
   display: block;
 }
 
-.game-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(2, 2, 5, 0.85);
-  backdrop-filter: blur(4px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  text-align: center;
-}
-
-.game-overlay-title {
-  font-size: 28px;
-  margin-bottom: 12px;
-  color: white;
-}
-
-.game-overlay-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-  max-width: 320px;
-  line-height: 1.5;
-}
-
 /* Section FAQ */
 .faq-list {
   max-width: 760px;
@@ -1457,6 +1422,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 }
 
 .faq-card {
@@ -1731,6 +1697,10 @@
     margin-bottom: 24px;
   }
   
+  .section-container {
+    padding: 60px 16px;
+  }
+
   .about-grid, .contact-grid {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -2096,6 +2066,10 @@
   position: relative;
 }
 
+.wall-outer-wrap .section-container {
+  padding-top: 24px;
+}
+
 .wall-heading-accent {
   color: #3b82f6;
 }
@@ -2109,6 +2083,7 @@
 .wall-gallery-wrap {
   max-width: 960px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .wall-slider-viewport {
@@ -2263,7 +2238,7 @@
 }
 
 .winners-heading-accent {
-  color: #f59e0b;
+  color: #3b82f6;
 }
 
 .winners-subtitle {
@@ -2278,6 +2253,7 @@
   gap: 40px;
   max-width: 1000px;
   margin: 0 auto;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -2316,13 +2292,13 @@
 }
 
 .winner-gold-badge {
-  background-color: #fef3c7;
-  color: #b45309;
+  background-color: #dbeafe;
+  color: #1e40af;
 }
 
 .winner-silver-badge {
-  background-color: #e2e8f0;
-  color: #475569;
+  background-color: #e0e7ff;
+  color: #3730a3;
 }
 
 .winner-project-title {
@@ -2438,10 +2414,15 @@
   color: #3b82f6;
 }
 
+.sponsors-outer-wrap-new .heading-underline {
+  background: linear-gradient(90deg, #1d4ed8, #0891b2);
+}
+
 
 /* Tier block */
 .sponsor-tier-block {
   margin-bottom: 56px;
+  width: 100%;
 }
 
 .sponsor-tier-label {
@@ -2583,6 +2564,7 @@
   gap: 32px;
   max-width: 760px;
   margin: 0 auto;
+  width: 100%;
 }
 
 @media (max-width: 680px) {
@@ -2661,7 +2643,7 @@
 }
 
 /* =====================================================
-   GAME (Stick Hero)
+   GAME (Stick Hero) — Rectangular Box Layout
    ===================================================== */
 
 .game-outer-wrap-new {
@@ -2679,6 +2661,7 @@
   color: var(--text-secondary);
   margin-top: 8px;
   line-height: 1.7;
+  text-align: center;
 }
 
 .game-hint-small {
@@ -2686,17 +2669,33 @@
   color: var(--text-muted);
 }
 
-/* Canvas wrapper */
+/* ── Rectangular game box ── */
+.game-box-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Canvas wrapper — bounded rectangle */
 .game-canvas-container-new {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
-  max-height: 600px;
   overflow: hidden;
-  border-top: 3px solid #000000;
-  border-bottom: 3px solid #000000;
   cursor: pointer;
+}
+
+/* Override the rect variant inside the box */
+.game-canvas-rect {
+  height: 420px;
+  min-height: 300px;
+  max-height: 520px;
+  border: 3px solid #000000;
+  border-radius: 4px;
+  box-shadow: 6px 6px 0 #000000;
 }
 
 .game-canvas-new {
@@ -2729,13 +2728,16 @@
   font-size: 15px;
   font-weight: 600;
   color: #1e293b;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   border: 2px solid #000000;
-  padding: 14px 20px;
-  line-height: 1.6;
+  padding: 14px 24px;
+  line-height: 1.7;
   z-index: 3;
   pointer-events: none;
-  transition: opacity 2s;
+  transition: opacity 0.8s ease;
+  white-space: nowrap;
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 #000000;
 }
 
 .game-perfect-new {
@@ -2750,7 +2752,7 @@
   opacity: 0;
   z-index: 3;
   pointer-events: none;
-  transition: opacity 2s;
+  transition: opacity 0.6s ease;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   letter-spacing: 1px;
 }
@@ -2773,6 +2775,9 @@
   text-transform: uppercase;
   cursor: pointer;
   display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   z-index: 4;
   box-shadow: 4px 4px 0 #000000;
   transition: transform 0.15s, box-shadow 0.15s;
@@ -2783,7 +2788,7 @@
   box-shadow: 6px 6px 0 #000000;
 }
 
-/* ── Mobile HOLD button ──────────────────────────────────── */
+/* ── Mobile HOLD button ── */
 .game-hold-btn {
   position: absolute;
   bottom: 14px;
@@ -2804,6 +2809,7 @@
   -webkit-user-select: none;
   transition: transform 0.1s, box-shadow 0.1s;
   animation: holdBtnPulse 2.2s ease-in-out infinite;
+  border-radius: 2px;
 }
 
 .game-hold-btn:active {
@@ -2835,13 +2841,37 @@
   opacity: 0.6;
 }
 
-/* Responsive hint: show desktop/mobile variants appropriately */
+/* ── Button row below the game box ── */
+.game-actions-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0 0 0;
+  width: 100%;
+}
+
+.game-register-btn {
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.game-register-btn:hover .btn-register-3d-wrapper {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* Responsive hint */
 .game-hint-desktop { display: inline; }
 .game-hint-mobile  { display: none;   }
 
 @media (max-width: 640px) {
   .game-hint-desktop { display: none;   }
   .game-hint-mobile  { display: inline; }
+  .game-intro-new {
+    white-space: normal;
+    width: 85%;
+    font-size: 13px;
+    padding: 12px 16px;
+  }
 }
 
 /* =====================================================
@@ -2901,6 +2931,7 @@
   gap: 40px;
   max-width: 880px;
   margin: 0 auto 48px auto;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -3098,9 +3129,10 @@
     height: 36px;
   }
 
-  .game-canvas-container-new {
-    height: 50vh;
-    min-height: 300px;
+  .game-canvas-rect {
+    height: 320px;
+    min-height: 260px;
+    max-height: 400px;
   }
 
   .game-score-new {
@@ -3112,5 +3144,9 @@
   .contact-social-pill {
     padding: 8px 16px;
     font-size: 11px;
+  }
+
+  .game-actions-row {
+    padding: 16px 0 0 0;
   }
 }

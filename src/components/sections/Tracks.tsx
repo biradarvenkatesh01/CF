@@ -1,17 +1,32 @@
+import { motion } from 'framer-motion';
+
 export function Tracks() {
   return (
     <section id="tracks" className="tracks-outer-wrap" style={{ minHeight: '60vh' }}>
       <div className="section-container">
-        <div className="section-header-block">
+        <motion.div
+          className="section-header-block"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
           <h2 className="section-heading">Hackathon <span className="tracks-heading-accent">Tracks</span></h2>
-        </div>
+          <div className="heading-underline" />
+        </motion.div>
 
         <div className="tracks-grid-single">
-          <div className="card-3d tracks-card-custom">
+          <motion.div
+            className="card-3d tracks-card-custom"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          >
             <div className="card-3d-top"></div>
             <div className="card-3d-right"></div>
             <div className="card-3d-front">
-              <h3 className="card-3d-title">Rules & Deliverables</h3>
+              <h3 className="card-3d-title">Rules &amp; Deliverables</h3>
               
               <div className="card-3d-body">
                 <p className="tracks-paragraph">
@@ -42,7 +57,7 @@ export function Tracks() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

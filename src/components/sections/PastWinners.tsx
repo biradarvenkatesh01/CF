@@ -66,15 +66,15 @@ const WINNERS: Winner[] = [
 
 const themeMap = {
   gold: {
-    top: '#f59e0b',
-    right: '#d97706',
-    front: '#fffbeb',
+    top: '#3b82f6',
+    right: '#1d4ed8',
+    front: '#eff6ff',
     badge: 'winner-gold-badge',
   },
   silver: {
-    top: '#cbd5e1',
-    right: '#94a3b8',
-    front: '#f1f5f9',
+    top: '#6366f1',
+    right: '#4f46e5',
+    front: '#eef2ff',
     badge: 'winner-silver-badge',
   },
 };

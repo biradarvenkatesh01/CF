@@ -8,7 +8,7 @@ interface HeroProps {
   isReveal?: boolean;
 }
 
-export function Hero({ onExplore, isReveal = false }: HeroProps) {
+export function Hero({ isReveal = false }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
   function calculateTimeLeft() {

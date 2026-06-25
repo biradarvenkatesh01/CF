@@ -61,7 +61,7 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
 
 export function Timeline() {
   return (
-    <section id="timeline" className="timeline-section-wrap" style={{ minHeight: '80vh', padding: '0 0 80px 0' }}>
+    <section id="timeline" className="timeline-section-wrap" style={{ minHeight: '80vh', padding: '0 0 20px 0' }}>
       <div className="section-container">
         <motion.div
           className="section-header-block"
@@ -71,6 +71,7 @@ export function Timeline() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
           <h2 className="section-heading">Event <span className="timeline-heading-accent">Timeline</span></h2>
+          <div className="heading-underline" />
         </motion.div>
 
         <div className="timeline-container">
