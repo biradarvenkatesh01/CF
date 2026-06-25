@@ -510,6 +510,10 @@
   transform: translateY(-6px) scale(1.05);
 }
 
+.btn-register-3d:active .btn-register-3d-wrapper {
+  transform: translateY(4px) scale(0.97);
+}
+
 /* Co-Presenters footer block */
 .presenters-block {
   width: 100%;

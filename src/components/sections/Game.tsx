@@ -8,10 +8,9 @@ export function Game() {
   const introRef     = useRef<HTMLDivElement>(null);
   const perfectRef   = useRef<HTMLDivElement>(null);
   const restartRef   = useRef<HTMLButtonElement>(null);
-  const holdBtnRef   = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !canvasRef.current || !scoreRef.current || !introRef.current || !perfectRef.current || !restartRef.current || !holdBtnRef.current) return;
+    if (!containerRef.current || !canvasRef.current || !scoreRef.current || !introRef.current || !perfectRef.current || !restartRef.current) return;
 
     const container = containerRef.current!;
     const canvas    = canvasRef.current!;
@@ -19,7 +18,6 @@ export function Game() {
     const introEl   = introRef.current!;
     const perfectEl = perfectRef.current!;
     const restartBtn = restartRef.current!;
-    const holdBtn    = holdBtnRef.current!;
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const lastOf = <T,>(arr: T[]): T => arr[arr.length - 1];
@@ -336,28 +334,15 @@ export function Game() {
       e.preventDefault();
       onMouseDown();
     };
-    const onTouchEnd = (e: TouchEvent) => {
-      e.preventDefault();
-      onMouseUp();
-    };
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === ' ') { e.preventDefault(); resetGame(); }
-    };
 
     const onResize = () => { resize(); draw(); };
 
-    canvas.addEventListener('mousedown', onMouseDown);
-    canvas.addEventListener('mouseup', onMouseUp);
+    canvas.addEventListener('mousedown',  onMouseDown);
     canvas.addEventListener('touchstart', onTouchStart, { passive: false });
-    canvas.addEventListener('touchend',   onTouchEnd,   { passive: false });
-    window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('resize', onResize);
-
-    holdBtn.addEventListener('mousedown',  onMouseDown);
-    holdBtn.addEventListener('mouseup',    onMouseUp);
-    holdBtn.addEventListener('touchstart', onTouchStart, { passive: false });
-    holdBtn.addEventListener('touchend',   onTouchEnd,   { passive: false });
+    
+    window.addEventListener('mouseup',   onMouseUp);
+    window.addEventListener('touchend',  onMouseUp);
+    window.addEventListener('resize',    onResize);
 
     restartBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -370,16 +355,11 @@ export function Game() {
     return () => {
       isActive = false;
       cancelAnimationFrame(animId);
-      canvas.removeEventListener('mousedown', onMouseDown);
-      canvas.removeEventListener('mouseup', onMouseUp);
+      canvas.removeEventListener('mousedown',  onMouseDown);
       canvas.removeEventListener('touchstart', onTouchStart);
-      canvas.removeEventListener('touchend',   onTouchEnd);
-      holdBtn.removeEventListener('mousedown',  onMouseDown);
-      holdBtn.removeEventListener('mouseup',    onMouseUp);
-      holdBtn.removeEventListener('touchstart', onTouchStart);
-      holdBtn.removeEventListener('touchend',   onTouchEnd);
-      window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener('mouseup',   onMouseUp);
+      window.removeEventListener('touchend',  onMouseUp);
+      window.removeEventListener('resize',    onResize);
     };
   }, []);
 
@@ -399,8 +379,8 @@ export function Game() {
           </h2>
           <div className="heading-underline" />
           <p className="game-section-hint">
-            <span className="game-hint-desktop">Hold down the mouse button to stretch the stick · release to drop!</span>
-            <span className="game-hint-mobile">Tap and hold the <strong>HOLD</strong> button below · release to drop!</span>
+            <span className="game-hint-desktop">Hold down the mouse button on the canvas to stretch the stick · release to drop!</span>
+            <span className="game-hint-mobile">Tap and hold the canvas to stretch the stick · release to drop!</span>
             <br />
             <span className="game-hint-small">Land perfectly in the red zone for <strong>DOUBLE SCORE</strong></span>
           </p>
@@ -428,8 +408,7 @@ export function Game() {
 
             {/* Intro overlay */}
             <div ref={introRef} className="game-intro-new">
-              Tap &amp; hold the button below<br />
-              <span style={{ fontSize: '12px', opacity: 0.8 }}>(or hold mouse on canvas)</span><br />
+              Tap &amp; hold on the canvas<br />
               to stretch out a stick
             </div>
 
@@ -442,69 +421,6 @@ export function Game() {
             <button ref={restartRef} className="game-restart-new" aria-label="Restart Game">
               RESTART
             </button>
-
-            {/* Mobile hold button */}
-            <button
-              ref={holdBtnRef}
-              className="game-hold-btn"
-              aria-label="Hold to stretch the stick"
-            >
-              <span className="game-hold-label">HOLD</span>
-              <span className="game-hold-sub">press &amp; hold</span>
-            </button>
-          </div>
-
-          {/* Button row — directly below the game box */}
-          <div className="game-actions-row">
-            <a href="#register" className="btn-register-3d game-register-btn" aria-label="Register Now">
-              <div className="btn-register-3d-wrapper">
-                <svg
-                  width="200"
-                  height="54"
-                  viewBox="0 0 200 54"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Top Face (Light Blue) */}
-                  <polygon
-                    points="2,12 14,2 198,2 186,12"
-                    fill="#3b82f6"
-                    stroke="#000000"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  {/* Right Face (Medium Blue) */}
-                  <polygon
-                    points="186,12 198,2 198,42 186,52"
-                    fill="#1d4ed8"
-                    stroke="#000000"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  {/* Front Face (White) */}
-                  <polygon
-                    points="2,12 186,12 186,52 2,52"
-                    fill="#ffffff"
-                    stroke="#000000"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  {/* Text */}
-                  <text
-                    x="94"
-                    y="32"
-                    fill="#000000"
-                    fontSize="13"
-                    fontWeight="bold"
-                    textAnchor="middle"
-                    fontFamily="var(--font-mono)"
-                    dominantBaseline="central"
-                  >
-                    REGISTER NOW →
-                  </text>
-                </svg>
-              </div>
-            </a>
           </div>
         </motion.div>
       </div>
